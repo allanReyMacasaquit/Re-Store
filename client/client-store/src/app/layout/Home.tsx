@@ -7,7 +7,7 @@ function Home() {
     <div>
       <Container>
       <Catalog/>
-    </Container>
+      </Container>
     </div>
     
     

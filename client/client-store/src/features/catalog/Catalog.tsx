@@ -1,4 +1,3 @@
-import { Button, } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Product } from '../../models/product';
 import ProductList from './ProductList';
@@ -13,25 +12,24 @@ function Catalog() {
   }, []);
   
 
-  function addProducts()  {
-    setProducts(
-      prevState =>[...prevState,  
-        { 
-          id: prevState.length + 101,
-          name: "product" + (prevState.length + 1),
-          description: "hello",
-          price: (prevState.length * 100) + 100,
-          pictureUrl: "http://picsum/photos/200",
-          type: "string",
-          brand: "string",
-          quantityInStock: 20,
-        }])
-
-  }
+  // function addProducts()  {
+  //   setProducts(
+  //     prevState =>[...prevState,  
+  //       { 
+  //         id: prevState.length + 101,
+  //         name: "product" + (prevState.length + 1),
+  //         description: "hello",
+  //         price: (prevState.length * 100) + 100,
+  //         pictureUrl: "http://picsum/photos/200",
+  //         type: "string",
+  //         brand: "string",
+  //         quantityInStock: 20,
+  //       }])
+  // }
   return (
   <div>
       <ProductList products={products}/>
-      <Button variant="contained" onClick={addProducts}>Add Product</Button>
+     
       
   </div>);
 }
