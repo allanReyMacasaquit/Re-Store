@@ -1,4 +1,5 @@
 import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { Product } from '../../models/product';
 
 interface Props {
@@ -51,11 +52,19 @@ export default function ProductCard({product}: Props) {
                         {product.brand} / {product.type}
                     </Typography>
                 </CardContent>
-                <CardActions>
-                    <Button variant="contained" color="success">
+                <CardActions sx={{display: 'flex', justifyContent: 'space-between', }}>
+                    <Button 
+                        sx={{borderRadius: '25px'}}
+                        variant="contained" 
+                        color="success">
                         Add to Cart
                     </Button>
-                    <Button variant='contained' color='info'>View details</Button>
+                    <Button component={Link} to={`/catalog/${product.id}`}
+                        sx={{borderRadius: '25px'}}
+                        variant='contained' 
+                        color='info'>
+                        View details
+                    </Button>
                 </CardActions>
                 
             </Card> 

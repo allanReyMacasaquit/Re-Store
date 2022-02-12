@@ -18,6 +18,22 @@ const rightLinks = [
   {title: 'register', path: '/register'}
 ]
 
+const navStyles = [{
+                color: 'inherit',
+                Typography: '6',
+                textDecoration: 'none',
+                '&:hover': {
+                  color: '#1C0935',
+                  background: "#5493DC",
+                  borderRadius: '25px',
+              },
+                '&.active': {
+                  color: '#1C0935',
+                  background: "#A14DDA",
+                  borderRadius: '25px'
+              }
+            }]
+
  function Header({darkMode, handleThemeChange}: Props) { 
   return (
     <Box sx={{
@@ -29,10 +45,18 @@ const rightLinks = [
     }}>
       <AppBar position="fixed" >
         <Toolbar sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-          <Typography variant="h5" component={NavLink} to="/">
+          <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'end'}} >
+            <img style={{width: '200px'}} src='/images/logo.png' alt='Re-Store logo'/>
+          <Typography 
+            variant="h5" 
+            component={NavLink} to="/"
+            style={{padding: '7px'}}
+            sx={navStyles}
+          >
             Re-Store Shop
           </Typography>
-         
+          </Box>
+          
           <List sx={{
             display: 'flex' , 
             m:2, 
@@ -41,19 +65,12 @@ const rightLinks = [
             }}>
             {midLinks.map(({title, path}) => (
             <ListItem
+              component={NavLink} 
+              to={path}
               key={path}
-              sx={{
-                '&:hover': {
-                  background: "#5493DC",
-                  borderRadius: '25px',
-              },
-                '&:active': {
-                  background: "#A14DDA",
-                  borderRadius: '25px'
-              }
-            }}
+              sx={navStyles}
             >
-              <NavLink to={path}>{title}</NavLink>
+              {title}
             </ListItem>
             ))}
           </List>
@@ -61,31 +78,34 @@ const rightLinks = [
             <List sx={{display: 'flex' , m:2, textTransform: 'Capitalize', typography: 'h8'}}>
             {rightLinks.map(({title, path}) => (
             <ListItem
+              component={NavLink} 
+              to={path}
               key={path}
-                sx={{
-                '&:hover': {
-                  background: "#5493DC",
-                  borderRadius: '25px',
-             }
-            }}
+              sx={navStyles}
             >
-              <NavLink to={path}>{title}</NavLink>
+            {title}
             </ListItem>
             ))}
           </List>
 
-          <IconButton size='large' sx={{color: 'inherit'}}>
+          <IconButton size='large' sx={{color: 'inherit', '&:hover': {
+                  background: "#5493DC",
+                  borderRadius: '25px',
+             }}}>
             <Badge badgeContent={4} color='secondary'>
-              <Typography>Cart</Typography>
-              <ShoppingCart /> 
+              <Typography 
+               sx={navStyles}
+              >Cart
+              </Typography>
+              <ShoppingCart sx={navStyles}/> 
             </Badge>
           </IconButton>
 
           </Box>
-
           <FormControlLabel
-            control={<MaterialUISwitch sx={{ m: 1 }}/>}
-            label="MUI switch"
+            control={<MaterialUISwitch/>}
+            label="Switch Mode" 
+            sx={navStyles} style={{paddingRight: '5px'}}
             checked={darkMode} onChange={handleThemeChange}
           ></FormControlLabel>
             
