@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\allan\\Projects\\Re-Store\\API\\API.csproj": {}
+    "C:\\Users\\allan\\Projects\\Re-Store\\Api\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\allan\\Projects\\Re-Store\\API\\API.csproj": {
+    "C:\\Users\\allan\\Projects\\Re-Store\\Api\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\allan\\Projects\\Re-Store\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\allan\\Projects\\Re-Store\\Api\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\allan\\Projects\\Re-Store\\API\\API.csproj",
+        "projectPath": "C:\\Users\\allan\\Projects\\Re-Store\\Api\\API.csproj",
         "packagesPath": "C:\\Users\\allan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\allan\\Projects\\Re-Store\\API\\obj\\",
+        "outputPath": "C:\\Users\\allan\\Projects\\Re-Store\\Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\allan\\AppData\\Roaming\\NuGet\\NuGet.Config",
