@@ -5,6 +5,9 @@ namespace API.Controllers
 {
     public class BuggyController : BaseAPIController
     {
+        private const string ErrorMessage = "This is the first error";
+        private const string ErrorMessage1 = "This is the second error";
+
         [HttpGet("not-found")]
         public ActionResult GetNotFound()
         {
@@ -24,10 +27,10 @@ namespace API.Controllers
         }
 
         [HttpGet("validation-error")]
-        public ActionResult GetValidationError()
+        public IActionResult GetValidationError()
         {
-            ModelState.AddModelError("Problem1", "This is the first error");
-            ModelState.AddModelError("Problem2", "This is the second error");
+            ModelState.AddModelError("Problem1", ErrorMessage);
+            ModelState.AddModelError("Problem2", ErrorMessage1);
             return ValidationProblem();
         }
 

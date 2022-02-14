@@ -10,7 +10,11 @@ interface Props {
 const midLinks = [
   {title: 'about', path: '/about'},
   {title: 'catalog', path: '/catalog'},
-  {title: 'contact', path: '/contact'}
+  {title: 'contact', path: '/contact'},
+]
+
+const errorLink = [
+  {title: 'error', path: '/error'}
 ]
 
 const rightLinks = [
@@ -72,6 +76,25 @@ export const navStyles = [{
             </ListItem>
             ))}
           </List>
+
+          <List sx={{
+            display: 'flex' , 
+            m:2, 
+            textTransform: 'uppercase', 
+            typography: 'h6'
+            }}>
+            {errorLink.map(({title, path}) => (
+            <ListItem
+              component={NavLink}
+              to={path}
+              key={path}
+              sx={{color: 'red'}}
+            >
+              {title}
+            </ListItem>
+            ))}
+          </List>
+
           <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
             <List sx={{display: 'flex' , m:2, textTransform: 'Capitalize', typography: 'h8'}}>
             {rightLinks.map(({title, path}) => (

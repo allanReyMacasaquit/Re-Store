@@ -1,8 +1,21 @@
+import { Backdrop, Box, CircularProgress, Typography } from '@mui/material'
 import React from 'react'
 
-function LoadingComponent() {
+interface Props {
+    message?: string;
+}
+
+
+function LoadingComponent({message = "Loading..."}: Props) {
   return (
-    <div>LoadingComponent</div>
+     <Backdrop open={true} invisible={true}>
+            <Box display='flex' justifyContent='center' alignItems='center' height='100vh'>
+                <CircularProgress size={100} color='secondary' />
+                <Typography variant='h4' sx={{justifyContent: 'center', position: 'fixed', top: '60%'}}>
+                    {message}
+                </Typography>
+            </Box>
+        </Backdrop>
   )
 }
 
