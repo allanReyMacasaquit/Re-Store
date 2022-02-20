@@ -1,6 +1,7 @@
 import { ShoppingCart } from '@mui/icons-material';
-import { AppBar, Badge, Box,FormControlLabel,IconButton,List, ListItem, styled, Switch, Toolbar, Typography } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import { AppBar, Badge, BadgeProps, Box,FormControlLabel,IconButton,List, ListItem, styled, Switch, Toolbar, Typography } from '@mui/material';
+import { Link, NavLink } from 'react-router-dom';
+import { useStoreContext } from '../context/StoreContext';
 
 interface Props {
   darkMode: boolean;
@@ -38,7 +39,10 @@ export const navStyles = [{
               }
             }]
 
- function Header({darkMode, handleThemeChange}: Props) { 
+function Header({darkMode, handleThemeChange}: Props) { 
+const {basket} = useStoreContext();
+const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0)
+
   return (
     <Box sx={{
       boxShadow: 3,
@@ -50,7 +54,7 @@ export const navStyles = [{
             <img style={{width: '150px'}} src='/images/logo.png' alt='Re-Store logo'/>
           <Typography 
             component={NavLink}
-            to='/homepage'
+            exact to='/'
             variant="h5" 
             style={{padding: '7px'}}
             sx={navStyles}
@@ -90,7 +94,6 @@ export const navStyles = [{
               key={path}
               sx={{color: 'red'}}
             >
-              {title}
             </ListItem>
             ))}
           </List>
@@ -109,17 +112,16 @@ export const navStyles = [{
             ))}
           </List>
 
-          <IconButton size='large' sx={{color: 'inherit', '&:hover': {
+          <IconButton component={Link} to='/basket' size='large' sx={{color: 'inherit', '&:hover': {
                   background: "#5493DC",
                   borderRadius: '25px',
              }}}>
-            <Badge badgeContent={4} color='secondary'>
+            <StyledBadge badgeContent={itemCount} color='secondary'>
               <Typography 
-               sx={navStyles}
               >Cart
               </Typography>
-              <ShoppingCart sx={navStyles}/> 
-            </Badge>
+              <ShoppingCart/> 
+            </StyledBadge>
           </IconButton>
 
           </Box>
@@ -138,11 +140,20 @@ export const navStyles = [{
 
 export default Header;
 
+const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    right: -6,
+    top: -4,
+    border: `1px solid ${theme.palette.background.paper}`,
+    padding: '0 6px',
+  },
+}));
+
 const Wrapper = styled(AppBar)`
 background: linear-gradient(#14223E 0%, #233B6C 34.48%, #567CC8 100%);
 `;
 
-const MaterialUISwitch = styled(Switch)(({ theme }) => ({
+const MaterialUISwitch = styled(Switch)(({ theme}) => ({
   width: 62,
   height: 34,
   padding: 7,

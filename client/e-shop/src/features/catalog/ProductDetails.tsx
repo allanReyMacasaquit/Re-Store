@@ -3,6 +3,7 @@ import { Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, T
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import agent from '../../app/api/agent';
+import { useStoreContext } from '../../app/context/StoreContext';
 import NotFound from '../../app/errors/NotFound';
 import LoadingComponent from '../../app/layout/LoadingComponent';
 import { Product } from '../../app/models/product';
@@ -12,13 +13,44 @@ function ProductDetails() {
   const [product, setProduct] = useState<Product | null>();
   const [loading, setLoading] = useState(true);
 
+  const {basket, setBasket, removeItem} = useStoreContext();
+
+  const [quantity, setQuantity] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
+
+  const item = basket?.items.find(i => i.productId === product?.id);
+
   useEffect(() => {
-    agent.Catalog.details(parseInt(id))
-    .then(response => setProduct(response))
-    .catch(error => console.log(error))
-    .finally(() => setLoading(false));
-  }, [id])
-  
+    if (item) setQuantity(item.quantity);
+        agent.Catalog.details(parseInt(id))
+        .then(response => setProduct(response))
+        .catch(error => console.log(error))
+        .finally(() => setLoading(false));
+    }, [id, item])
+
+  function handleInputChange(event: any) {
+    if (event.target.value >= 0) {
+        setQuantity(parseInt(event.target.value));
+    }
+  }
+
+  function handleUpdateCart() {
+    setSubmitting(true);
+    if ( !item || quantity > item.quantity) {
+        const updatedQuantity = item ? quantity - item.quantity : quantity;
+        agent.Basket.addItem(product?.id!, updatedQuantity)
+            .then(basket => setBasket(basket))
+            .catch(error => console.log(error))
+            .finally(() => setSubmitting(false))
+    } else {
+        const updatedQuantity = item.quantity - quantity;
+        agent.Basket.removeItem(product?.id!, updatedQuantity)
+        .then(() => removeItem(product?.id!, updatedQuantity))
+        .catch(error => console.log(error))
+        .finally(() => setSubmitting(false));
+    }
+  }
+
   if (loading) return <LoadingComponent message='Loading Product Details...'/>
 
   if(!product) return <NotFound/>
@@ -61,20 +93,26 @@ function ProductDetails() {
                 <Grid container spacing={4} sx={{mt: 4}}>
                     <Grid item xs={6}>
                         <TextField 
+                        onChange={handleInputChange}
                             variant='outlined'
                             type='number'
                             label='Quantity in Cart'
+                            fullWidth
+                            value={quantity}
                         />
                     </Grid>
                     <Grid item xs={6}>
                         <LoadingButton
+                            disabled={item?.quantity === quantity || (!item && quantity === 0)}
+                            loading={submitting}
+                            onClick={handleUpdateCart}
                             sx={{height: '55px', borderRadius: '25px', background: 'linear-gradient(#003566 0%, #A3B7E1 34.48%, #003566 100%)'}}
                             color='primary'
                             size='large'
                             variant='contained'
                             fullWidth
                         >
-                          Loading...
+                          {item ? 'Update Quantity' : 'Add Cart'}
                         </LoadingButton>
                     </Grid>
                 </Grid>
