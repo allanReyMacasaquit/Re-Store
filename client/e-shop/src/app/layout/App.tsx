@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AboutPage from '../../features/about/AboutPage';
 import BasketPage from '../../features/basket/BasketPage';
+import { setBasket } from '../../features/basket/basketSlice/basketSlice';
 import Catalog from '../../features/catalog/Catalog';
 import ProductDetails from '../../features/catalog/ProductDetails';
 import CheckoutPage from '../../features/checkout/CheckoutPage';
@@ -12,29 +13,33 @@ import ContactPage from '../../features/contact/ContactPage';
 import ErrorPage from '../../features/errorHandling/ErrorPage';
 import HomePage from '../../features/home/HomePage';
 import agent from '../api/agent';
-import { useStoreContext } from '../context/StoreContext';
+// import { useStoreContext } from '../context/StoreContext';
 import NotFound from '../errors/NotFound';
 import ServerError from '../errors/ServerError';
+import { useAppDispatch } from '../store/configureStore';
 import { getCookie } from '../util/util';
 import Header from './Header';
 import LoadingComponent from './LoadingComponent';
 
 function App() {
-const {setBasket} = useStoreContext();
+//replace useStoreContext() with useAppDispatch(); 
+const dispatch = useAppDispatch();
+// const {setBasket} = useStoreContext();
+
 const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const buyerId = getCookie('buyerId');
     if (buyerId) {
       agent.Basket.get()
-        .then(basket => setBasket(basket))
+        .then(basket => dispatch(setBasket(basket)))
         .catch(error => console.log(error))
         .finally(() => setLoading(false))
     } 
     else {
       setLoading(false)
     }
-  }, [setBasket])
+  }, [dispatch])
 
 const [darkMode, setDarkMode] = useState(false);
 const paletteType = darkMode ? 'dark' : 'light'
@@ -44,7 +49,7 @@ const theme = createTheme({
       mode: paletteType,
       background: {
         default: paletteType === 'light' ? '#F0F3FA' : '#0A111F'
-      }
+      },
     }
   })
 
