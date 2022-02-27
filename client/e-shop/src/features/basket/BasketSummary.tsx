@@ -6,7 +6,6 @@ import { currencyFormat } from "../../app/util/util";
 
 export default function BasketSummary() {
   const {basket} = useAppSelector(state => state.basket)
-  // const {basket} = useStoreContext();
 
     const subtotal = basket?.items.reduce((sum, item) => sum + (item.price * item.quantity), 0) ?? 0;
     const deliveryFee = subtotal > 10000 ? 0 : 1375;
@@ -18,7 +17,7 @@ export default function BasketSummary() {
             sx={{
               borderRadius: '10px',
               margin: '10px',
-              background: "linear-gradient(#84A0D7 0%, #3C66B9 34.48%, #567CC8 100%)"}}>
+            }}>
                 <Table>
                     <TableBody>
                         <TableRow>

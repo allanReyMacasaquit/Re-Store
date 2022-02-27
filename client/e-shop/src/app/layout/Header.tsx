@@ -25,17 +25,17 @@ const rightLinks = [
 ]
 
 export const navStyles = [{
+                padding: '10px',
                 color: 'inherit',
                 Typography: '6',
                 textDecoration: 'none',
                 '&:hover': {
                   color: '#F0F3FA',
-                  background: "linear-gradient(#84A0D7 0%, #A3B7E1 34.48%, #567CC8 100%)",
+                  background: "linear-gradient(#84A0D7 0%, #3C66B9 34.48%, #567CC8 100%);",
                   borderRadius: '25px',
               },
                 '&.active': {
                   color: '#0A111F',
-                  background: "linear-gradient(#84A0D7 0%, #3C66B9 34.48%, #567CC8 100%);",
                   borderRadius: '25px'
               }
             }]
@@ -51,7 +51,7 @@ const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0)
       boxShadow: 3,
       height: 97,
     }}>
-      <Wrapper position="fixed" >
+      <Wrapper position="static" >
         <Toolbar sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
           <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}} >
             <img style={{width: '150px'}} src='/images/logo.png' alt='Re-Store logo'/>

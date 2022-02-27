@@ -11,7 +11,7 @@ const initialState: BasketState = {
     basket: null,
     status: 'idle'
 }
-//ASYNC METHOD
+
 export const addBasketItemAsync = createAsyncThunk<Basket, {productId: number, quantity?: number}>(
     'basket/addBasketItemAsync',
     async ({productId, quantity = 1}, thunkAPI) => {
@@ -23,7 +23,8 @@ export const addBasketItemAsync = createAsyncThunk<Basket, {productId: number, q
     }
 )
 
-export const removeBasketItemAsync = createAsyncThunk<void,{productId: number, quantity: number, name?: string}>(
+export const removeBasketItemAsync = createAsyncThunk<void, 
+    {productId: number, quantity: number, name?: string}>(
     'basket/removeBasketItemAsync',
     async ({productId, quantity}, thunkAPI) => {
         try {
@@ -54,7 +55,6 @@ export const basketSlice = createSlice({
             console.log(action.payload);
             state.status = 'idle';
         });
-
         builder.addCase(removeBasketItemAsync.pending, (state, action) => {
             state.status = 'pendingRemoveItem' + action.meta.arg.productId + action.meta.arg.name;
         });

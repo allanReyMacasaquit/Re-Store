@@ -31,12 +31,12 @@ function BasketPage() {
     <>
    
     <ThemeProvider theme={theme}>
-        <Typography variant='h4' marginTop={2}>Your Cart</Typography>
+        
         <TableContainer sx={{mt: '20px', height: '64vh', boxShadow: 5,
           borderTopLeftRadius: '10px',
           borderTopRightRadius: '10px',
           background: "linear-gradient(#005F73 0%, #3C66B9 34.48%, #567CC8 100%)"}}>
-        <Table stickyHeader aria-label="sticky table">
+        <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
           <TableHead sx={{color: 'purple'}} >
             <TableRow sx={{boxShadow: 5, }}>
               <TableCell align='left'><Typography sx={{fontSize: "20px", textDecoration: 'underline', textUnderlinePosition: 'under',  borderRadius: '5px'}} variant='h5' marginLeft={9}>Product</Typography></TableCell>
@@ -51,9 +51,9 @@ function BasketPage() {
               {basket.items.map((item) => (
                 <TableRow
                   key={item.productId}
-                 
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                  <TableCell>
+                  <TableCell  component="th" scope="row">
                     <Box display='flex' alignItems='center'>
                       <img src={item.pictureUrl} alt={item.name} style={{height: 50, marginRight: 20}}/>
                       <span>
@@ -85,8 +85,8 @@ function BasketPage() {
                          color='error'>
                          <Remove/>
                       </LoadingButton>
-                        
                       </Box>
+
                         <Typography variant='h4' color='primary.main' margin={2}>
                           {item.quantity}
                         </Typography>
@@ -105,7 +105,6 @@ function BasketPage() {
                     </Box>
                   </TableCell>
                  
-
                   <TableCell align="center">
                     <Typography variant='h6' color='primary.main'>
                       ${((item.price * item.quantity) / 100).toFixed(2)}

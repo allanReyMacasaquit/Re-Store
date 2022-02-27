@@ -8,43 +8,39 @@ import { useAppDispatch, useAppSelector } from '../../app/store/configureStore';
 import { addBasketItemAsync, removeBasketItemAsync } from '../basket/basketSlice/basketSlice';
 import { fetchProductAsync, productSelectors } from './catalogSlice/catalogSlice';
 
-function ProductDetails() {
-  const {id} = useParams<{id: string}>();
-  const [quantity, setQuantity] = useState(0);
+export default function ProductDetails() {
+    const {basket, status} = useAppSelector(state => state.basket);
+    const dispatch = useAppDispatch();
+    const {id} = useParams<{id: string}>();
+    const product = useAppSelector(state => productSelectors.selectById(state, id));
+    const {status: productStatus} = useAppSelector(state => state.catalog);
+    const [quantity, setQuantity] = useState(0);
+    const item = basket?.items.find(i => i.productId === product?.id);
 
-  const dispatch = useAppDispatch();
-  const {basket, status} = useAppSelector(state => state.basket)
-
-  const product = useAppSelector(state => productSelectors.selectById(state, id));
-  const {status: productStatus} = useAppSelector(state => state.catalog);
-
-  const item = basket?.items.find(i => i.productId === product?.id);
-
-  useEffect(() => {
-    if (item) setQuantity(item.quantity);
+    useEffect(() => {
+        if (item) setQuantity(item.quantity);
         if (!product) dispatch(fetchProductAsync(parseInt(id)))
     }, [id, item, dispatch, product]);
 
-  function handleInputChange(event: any) {
-    if (event.target.value >= 0) {
-        setQuantity(parseInt(event.target.value));
+    function handleInputChange(event: any) {
+        if (event.target.value >= 0) {
+            setQuantity(parseInt(event.target.value));
+        }
     }
-  }
 
-  function handleUpdateCart() {
-    // setSubmitting(true);
-    if ( !item || quantity > item.quantity) {
-        const updatedQuantity = item ? quantity - item.quantity : quantity;
-        dispatch(addBasketItemAsync({productId: product?.id!, quantity: updatedQuantity}))
-    } else {
-        const updatedQuantity = item.quantity - quantity;
-        dispatch(removeBasketItemAsync({productId: product?.id!, quantity: updatedQuantity}))
+    function handleUpdateCart() {
+        if (!item || quantity > item.quantity) {
+            const updatedQuantity = item ? quantity - item.quantity : quantity;
+            dispatch(addBasketItemAsync({productId: product?.id!, quantity: updatedQuantity}))
+        } else {
+            const updatedQuantity = item.quantity - quantity;
+            dispatch(removeBasketItemAsync({productId: product?.id!, quantity: updatedQuantity}))
+        }
     }
-  }
 
-  if (productStatus.includes('pending')) return <LoadingComponent message='Loading Product Details...'/>
+    if (productStatus.includes('pending')) return <LoadingComponent message='Loading product...' />
 
-  if(!product) return <NotFound/>
+    if (!product) return <NotFound />
 
   return (
   <Grid container spacing={6} sx={{mt: '10px'}}>
@@ -111,5 +107,3 @@ function ProductDetails() {
         </Grid>
   )
 }
-
-export default ProductDetails

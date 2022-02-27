@@ -1,31 +1,34 @@
 import { Box, Container, Grid} from '@mui/material'
 import { Product } from '../../app/models/product'
+import { useAppSelector } from '../../app/store/configureStore';
 import ProductCard from './ProductCard'
+import ProductCardSkeleton from './ProductCardSkeleton';
 
 interface Props {
   products: Product[]
 }
 
 function ProductList({products}: Props) {
+    const { productsLoaded } = useAppSelector(state => state.catalog);
   return (
     <Container >
       <Box sx={{
-        boxShadow: 10, 
-        paddingRight: '20px',
-        paddingLeft: '20px',
-        marginTop: '50px',
-        borderRadius: '20px',
-        background: "linear-gradient(#90E0EF 0%, #3C66B9 34.48%, #90E0EF 100%)"
+       marginTop: '3rem'
       }}  
       >
-        <Grid container spacing={4} sx={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
+        <Grid container spacing={2} sx={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
         {products.map((product) => 
-          <Grid item key={product.id} >
+          <Grid xs={5} item key={product.id} >
+            {!productsLoaded ? (
+              <ProductCardSkeleton/>
+            ) : 
               <ProductCard product={product}/>
+            }
           </Grid>
         )}
       </Grid>
       </Box>
+      
     </Container>
   )
 }
