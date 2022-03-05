@@ -1,64 +1,38 @@
-import { TableContainer, Table, TableBody, TableRow, TableCell, Typography } from "@mui/material";
-// import { useStoreContext } from "../../app/context/StoreContext";
+import { TableContainer, Paper, Table, TableBody, TableRow, TableCell } from "@mui/material";
 import { useAppSelector } from "../../app/store/configureStore";
 import { currencyFormat } from "../../app/util/util";
 
+interface Props {
+    subtotal?: number;
+}
 
-export default function BasketSummary() {
-  const {basket} = useAppSelector(state => state.basket)
-
-    const subtotal = basket?.items.reduce((sum, item) => sum + (item.price * item.quantity), 0) ?? 0;
-    const deliveryFee = subtotal > 10000 ? 0 : 1375;
-    const HST = subtotal * 0.1300
+export default function BasketSummary({subtotal}: Props) {
+    const {basket} = useAppSelector(state => state.basket);
+    if (subtotal === undefined)
+       subtotal = basket?.items.reduce((sum, item) => sum + (item.quantity * item.price), 0) ?? 0;
+    const deliveryFee = subtotal > 10000 ? 0 : 500;
 
     return (
         <>
-            <TableContainer
-            sx={{
-              borderRadius: '10px',
-              margin: '10px',
-            }}>
+            <TableContainer component={Paper} variant={'outlined'}>
                 <Table>
                     <TableBody>
                         <TableRow>
                             <TableCell colSpan={2}>Subtotal</TableCell>
-                            <TableCell align="right">
-                              <Typography sx={{color: 'HighlightText'}}>
-                                 {currencyFormat(subtotal)}
-                              </Typography>
-                             
-                            </TableCell>
+                            <TableCell align="right">{currencyFormat(subtotal)}</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell colSpan={2}>Delivery fee*</TableCell>
-                            <TableCell align="right">
-                              <Typography sx={{color: 'HighlightText'}}>
-                                {currencyFormat(deliveryFee)}
-                              </Typography>
-                              </TableCell>
+                            <TableCell align="right">{currencyFormat(deliveryFee)}</TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell colSpan={2}>HST*</TableCell>
-                            <TableCell align="right">
-                              <Typography sx={{color: 'HighlightText'}}>
-                                {currencyFormat(HST)}
-                              </Typography>
-                              </TableCell>
+                            <TableCell colSpan={2}>Total</TableCell>
+                            <TableCell align="right">{currencyFormat(subtotal + deliveryFee)}</TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell colSpan={2}>
-                               <Typography variant="h6" sx={{color: 'HighlightText'}}>
-                                  Total
-                               </Typography>
-                             </TableCell>
-                            <TableCell align="right">
-                              <Typography sx={{color: 'HighlightText', fontSize: "20px", textDecoration: 'underline', textUnderlinePosition: 'under'} }>
-                                  {currencyFormat(subtotal + deliveryFee + HST)}
-                              </Typography>
+                            <TableCell>
+                                <span style={{fontStyle: 'italic'}}>*Orders over $100 qualify for free delivery</span>
                             </TableCell>
-                        </TableRow>
-                        <TableRow >
-                              <span style={{fontStyle: 'italic'}}>*Orders over $100 qualify for free delivery</span>
                         </TableRow>
                     </TableBody>
                 </Table>

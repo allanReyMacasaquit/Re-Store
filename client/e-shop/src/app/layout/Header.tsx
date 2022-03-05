@@ -1,8 +1,8 @@
 import { ShoppingCart } from '@mui/icons-material';
 import { AppBar, Badge, BadgeProps, Box,FormControlLabel,IconButton,List, ListItem, styled, Switch, Toolbar, Typography } from '@mui/material';
 import { Link, NavLink } from 'react-router-dom';
-// import { useStoreContext } from '../context/StoreContext';
 import { useAppSelector } from '../store/configureStore';
+import SignedInMenu from './SignedInMenu';
 
 interface Props {
   darkMode: boolean;
@@ -30,20 +30,16 @@ export const navStyles = [{
                 Typography: '6',
                 textDecoration: 'none',
                 '&:hover': {
-                  color: '#F0F3FA',
-                  background: "linear-gradient(#84A0D7 0%, #3C66B9 34.48%, #567CC8 100%);",
-                  borderRadius: '25px',
+                  color: '#74CEFB',
               },
                 '&.active': {
-                  color: '#0A111F',
-                  borderRadius: '25px'
+                  color: '#24B2F9',
               }
             }]
 
 function Header({darkMode, handleThemeChange}: Props) { 
-//use useAppSeclector(), replace useStoreContext();
+const {user} = useAppSelector(state => state.account)
 const {basket} = useAppSelector(state => state.basket)
-// const {basket} = useStoreContext();
 const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0)
 
   return (
@@ -101,33 +97,39 @@ const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0)
             ))}
           </List>
 
-          <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-            <List sx={{display: 'flex' , m:2, textTransform: 'Capitalize', typography: 'h8'}}>
-            {rightLinks.map(({title, path}) => (
-            <ListItem
-              component={NavLink}
-              to={path}
-              key={path}
-              sx={navStyles}
-            >
-            {title}
-            </ListItem>
-            ))}
-          </List>
-
-          <IconButton component={Link} to='/basket' size='large' sx={{color: 'inherit', '&:hover': {
-                  background: "#5493DC",
-                  borderRadius: '25px',
-             }}}>
-            <StyledBadge badgeContent={itemCount} color='secondary'>
-              <Typography 
-              >Cart
-              </Typography>
-              <ShoppingCart/> 
-            </StyledBadge>
-          </IconButton>
-
+          {user ? (
+            <SignedInMenu/>
+          ) : (
+            <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+              <List sx={{display: 'flex' , m:2, textTransform: 'Capitalize', typography: 'h8'}}>
+              {rightLinks.map(({title, path}) => (
+              <ListItem
+                component={NavLink}
+                to={path}
+                key={path}
+                sx={navStyles}
+              >
+              {title}
+              </ListItem>
+              ))}
+            </List>
           </Box>
+          )}
+
+          <Box>
+             <IconButton component={Link} to='/basket' size='large' sx={{color: 'inherit', '&:hover': {
+                    background: "#5493DC",
+                    borderRadius: '25px',
+              }}}>
+              <StyledBadge badgeContent={itemCount} color='secondary'>
+                <Typography 
+                >Cart
+                </Typography>
+                <ShoppingCart/> 
+              </StyledBadge>
+            </IconButton>
+          </Box>
+
           <FormControlLabel
             control={<MaterialUISwitch/>}
             label="Switch Mode" 
