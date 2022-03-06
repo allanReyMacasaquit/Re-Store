@@ -20,7 +20,6 @@ export const store = configureStore({
 axios.interceptors.request.use(config => {
     const token = store.getState().account.user?.token;
     if (token) config.headers = {Authorization: `Bearer ${token}`}
-    console.log(token)
     return config;
 })
 

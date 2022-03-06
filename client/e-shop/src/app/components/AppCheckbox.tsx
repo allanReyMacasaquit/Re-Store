@@ -21,5 +21,4 @@ export default function AppCheckbox(props: Props) {
             label={props.label}
         />
     )
-}
-
+} 
