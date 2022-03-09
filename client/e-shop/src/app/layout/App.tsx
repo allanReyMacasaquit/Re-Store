@@ -11,7 +11,7 @@ import BasketPage from '../../features/basket/BasketPage';
 import { fetchBasketAsync } from '../../features/basket/basketSlice/basketSlice';
 import Catalog from '../../features/catalog/Catalog';
 import ProductDetails from '../../features/catalog/ProductDetails';
-import CheckoutPage from '../../features/checkout/CheckoutPage';
+import CheckoutWrapper from '../../features/checkout/CheckoutWrapper';
 import ContactPage from '../../features/contact/ContactPage';
 import ErrorPage from '../../features/errorHandling/ErrorPage';
 import HomePage from '../../features/home/HomePage';
@@ -73,7 +73,7 @@ return (
           <Route path='/server-error' component={ServerError} />
           <Route path='/error' component={ErrorPage} />
           <Route path='/basket' component={BasketPage} />
-          <PrivateRoute path='/checkout' component={CheckoutPage} />
+          <PrivateRoute path='/checkout' component={CheckoutWrapper} />
           <PrivateRoute path='/orders' component={Orders} />
           <Route path='/login' component={Login} />
           <Route path='/register' component={Register} />
