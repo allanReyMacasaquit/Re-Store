@@ -18,7 +18,7 @@ function ProductList({products}: Props) {
       >
         <Grid container spacing={2} sx={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
         {products.map((product) => 
-          <Grid xs={5} item key={product.id} >
+          <Grid item key={product.id} >
             {!productsLoaded ? (
               <ProductCardSkeleton/>
             ) : 

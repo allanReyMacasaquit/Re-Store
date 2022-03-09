@@ -13,8 +13,11 @@ export default function BasketPage() {
         <Container component={Paper} sx={{mt: '100px', display: 'flex', justifyContent: 'space-between', textTransform: 'uppercase'}}>
           <Typography variant='h3' color='#003566'>Your basket is empty</Typography>
             <LoadingButton
-            onClick={() => history.push('/catalog')}> <Typography color='#003166'>Go back to the store
-                </Typography></LoadingButton>
+            onClick={() => history.push('/catalog')}> 
+            <Typography color='#003166'>
+                Go back to the store
+            </Typography>
+            </LoadingButton>
         </Container>
     )
     

@@ -63,23 +63,27 @@ return (
       <ToastContainer position='bottom-right' hideProgressBar theme='colored' />
       <CssBaseline />
       <Header darkMode={darkMode} handleThemeChange={handleThemeChange} />
-      <Container>
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route exact path='/catalog' component={Catalog} />
-          <Route path='/catalog/:id' component={ProductDetails} />
-          <Route path='/about' component={AboutPage} />
-          <Route path='/contact' component={ContactPage} />
-          <Route path='/server-error' component={ServerError} />
-          <Route path='/error' component={ErrorPage} />
-          <Route path='/basket' component={BasketPage} />
-          <PrivateRoute path='/checkout' component={CheckoutWrapper} />
-          <PrivateRoute path='/orders' component={Orders} />
-          <Route path='/login' component={Login} />
-          <Route path='/register' component={Register} />
-          <Route component={NotFound} />
-        </Switch>
-      </Container>
+      <Route exact path='/' component={HomePage} />
+        <Route path={'/(.+)'} render={() => (
+          <Container>
+            <Switch>
+              <Route exact path='/catalog' component={Catalog} />
+              <Route path='/catalog/:id' component={ProductDetails} />
+              <Route path='/about' component={AboutPage} />
+              <Route path='/contact' component={ContactPage} />
+              <Route path='/server-error' component={ServerError} />
+              <Route path='/error' component={ErrorPage} />
+              <Route path='/basket' component={BasketPage} />
+              <PrivateRoute path='/checkout' component={CheckoutWrapper} />
+              <PrivateRoute path='/orders' component={Orders} />
+              <Route path='/login' component={Login} />
+              <Route path='/register' component={Register} />
+              <Route component={NotFound} />
+            </Switch>
+        </Container>
+        )}>
+        </Route>
+      
     </ThemeProvider>
   )
 }

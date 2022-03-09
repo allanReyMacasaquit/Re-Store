@@ -31,7 +31,7 @@ export default function Catalog() {
     if (!filtersLoaded || !metaData) return <LoadingComponent message='Loading products...' />
 
     return (
-        <Grid container columnSpacing={1} >
+        <Grid container columnSpacing={1}  marginLeft={3}>
             <Grid item xs={3} marginTop='2rem'>
                 <Paper sx={{ mb: 2 }}>
                     <ProductSearch />
