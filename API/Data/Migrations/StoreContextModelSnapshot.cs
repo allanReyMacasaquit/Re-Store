@@ -174,14 +174,14 @@ namespace API.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "a66da3bc-99a7-4035-b23d-b8fb4d46eafa",
+                            ConcurrencyStamp = "34438c0b-f22e-45f7-8619-814d281859aa",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "d87fc262-2aab-443f-9354-98621bf63279",
+                            ConcurrencyStamp = "f459b5fc-2c86-45d5-b91f-42c64f706a5b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

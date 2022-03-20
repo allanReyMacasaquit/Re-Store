@@ -129,3 +129,6 @@ C:\Users\allan\Projects\Re-Store\API\bin\Debug\net6.0\runtimes\unix\lib\net6.0\S
 C:\Users\allan\Projects\Re-Store\API\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 C:\Users\allan\Projects\Re-Store\API\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\allan\Projects\Re-Store\API\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\allan\Projects\Re-Store\API\bin\Debug\net6.0\API.staticwebassets.runtime.json
+C:\Users\allan\Projects\Re-Store\API\bin\Debug\net6.0\Npgsql.dll
+C:\Users\allan\Projects\Re-Store\API\bin\Debug\net6.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll

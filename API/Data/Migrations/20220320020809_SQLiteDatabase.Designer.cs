@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20220305052525_OrderIdentityAdded")]
-    partial class OrderIdentityAdded
+    [Migration("20220320020809_SQLiteDatabase")]
+    partial class SQLiteDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,6 +26,12 @@ namespace API.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("BuyerId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ClientSecret")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PaymentIntentId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -170,14 +176,14 @@ namespace API.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "7597d34c-524f-4dc3-8c35-edc9af7aa79f",
+                            ConcurrencyStamp = "34438c0b-f22e-45f7-8619-814d281859aa",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "915f19f1-1225-4547-aecf-0fe7eec1f3aa",
+                            ConcurrencyStamp = "f459b5fc-2c86-45d5-b91f-42c64f706a5b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
